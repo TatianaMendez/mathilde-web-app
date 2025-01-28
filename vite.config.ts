@@ -6,33 +6,20 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: 'mathilde-web-app', // O 'app-mathilde-web' para el microfrontend
+      name: 'mathilde-web-app', // Nombre del host
       remotes: {
-        appmathildeweb: 'http://localhost:5173/assets/remoteEntry.js',
+        appmathildeweb: 'http://localhost:5173/assets/remoteEntry.js', // URL del remoto
       },
-      shared: {
-        react: {
-          requiredVersion: '^18.2.0', // Define la versión de React
-          singleton: true, // Usa una sola instancia de React
-        },
-        'react-dom': {
-          requiredVersion: '^18.2.0',
-          singleton: true,
-        },
-        'react-router-dom': {
-          requiredVersion: '^7.1.3', // Versión exacta de react-router-dom
-          singleton: true,
-        },
-      },
+      shared: ['react', 'react-dom', 'react-router-dom'], // Lista simplificada de dependencias compartidas
     }),
   ],
   build: {
-    modulePreload: false,
-    target: 'esnext',
-    minify: false,
+    target: 'esnext', // Compatible con Module Federation
+    minify: false, // Evita problemas de minificación en desarrollo
     cssCodeSplit: false,
   },
   server: {
-    port: 5000, // O 5173 para el microfrontend
+    port: 5000, // Puerto del host
+    cors: true, // Habilitar CORS si es necesario
   },
 });

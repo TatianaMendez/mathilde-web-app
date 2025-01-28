@@ -1,18 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-function App() {
-  const [count, setCount] = useState(0)
+// Importa los componentes remotos
+const RemoteCampaignForm = lazy(() => import('appmathildeweb/CampaignForm'));
+const RemoteLoginForm = lazy(() => import('appmathildeweb/LoginForm'));
+const RemoteRegisterForm = lazy(() => import('appmathildeweb/RegisterForm'));
+const RemoteResetPass = lazy(() => import('appmathildeweb/ResetPass'));
 
+const App = () => {
   return (
-    <>
-      <div>
-        <h1>Bievenido a Mathilde web</h1>
-      </div>
-    </>
-  )
-}
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<RemoteLoginForm />} />
+        <Route path="/register" element={<RemoteRegisterForm />} />
+        <Route path="/reset" element={<RemoteResetPass />} />
+        <Route path="/form-social" element={<RemoteCampaignForm />} />
+      </Routes>
+    </Suspense>
+  );
+};
 
-export default App
+export default App;

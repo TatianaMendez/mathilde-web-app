@@ -23,4 +23,14 @@ declare module 'appmathildeweb/ResetPass' {
   export default ResetPass;
 }
 
+declare module 'appmathildeweb/Dashboard' {
+  const Validation: React.ComponentType;
+  export default Validation;
+}
+
+declare module 'appmathildeweb/Dashboard' {
+  const Dashboard: React.ComponentType;
+  export default Dashboard;
+}
+
 declare module 'appmathildeweb/*';

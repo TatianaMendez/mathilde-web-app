@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { AuthProvider } from 'appmathildeweb/autenticationService';
 
 // Importa los componentes remotos
 const RemoteCampaignForm = lazy(() => import('appmathildeweb/CampaignForm'));
@@ -8,19 +9,23 @@ const RemoteRegisterForm = lazy(() => import('appmathildeweb/RegisterForm'));
 const RemoteResetPass = lazy(() => import('appmathildeweb/ResetPass'));
 const RemoteValidation = lazy(() => import('appmathildeweb/ValidationPass'));
 const RemoteDashboard = lazy(() => import('appmathildeweb/Dashboard'));
+const RemoteSettings = lazy(() => import('appmathildeweb/SettingsUser'));
 
 const App = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route path="/" element={<RemoteLoginForm />} />
-        <Route path="/register" element={<RemoteRegisterForm />} />
-        <Route path="/reset" element={<RemoteResetPass />} />
-        <Route path="/form-social" element={<RemoteCampaignForm />} />
-        <Route path="/validation" element={<RemoteValidation />} />
-        <Route path="/dashboard" element={<RemoteDashboard />} />
-      </Routes>
-    </Suspense>
+    <AuthProvider>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<RemoteLoginForm />} />
+          <Route path="/register" element={<RemoteRegisterForm />} />
+          <Route path="/reset" element={<RemoteResetPass />} />
+          <Route path="/form-social" element={<RemoteCampaignForm />} />
+          <Route path="/validation" element={<RemoteValidation />} />
+          <Route path="/dashboard" element={<RemoteDashboard />} />
+          <Route path="/settings" element={<RemoteSettings />} />
+        </Routes>
+      </Suspense>
+    </AuthProvider>
   );
 };
 
